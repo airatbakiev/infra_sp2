@@ -1,45 +1,46 @@
 ### Как запустить проект:
 
-Клонировать репозиторий и перейти в него в командной строке:
+Клонировать репозиторий:
 
 ```
-git clone https://github.com/airatbakiev/api_yamdb.git
+git clone https://github.com/airatbakiev/infra_sp2.git
 ```
 
+Перейти в папку infra и запустить docker-compose.yaml
+(при установленном и запущенном Docker)
 ```
-cd api_yamdb
-```
-
-Cоздать и активировать виртуальное окружение:
-
-```
-python -m venv env
+cd infra_sp2/infra
+docker-compose up
 ```
 
-```
-source venv/Scripts/activate
-```
+В контейнере web выполнить миграции:
 
 ```
-python -m pip install --upgrade pip
+docker-compose exec web python manage.py migrate
 ```
 
-Установить зависимости из файла requirements.txt:
+Создать суперпользователя:
 
 ```
-pip install -r requirements.txt
+docker-compose exec web python manage.py createsuperuser
 ```
 
-Выполнить миграции:
+Собрать статику:
 
 ```
-python manage.py migrate
+docker-compose exec web python manage.py collectstatic --no-input
 ```
 
-Запустить проект:
+Проверьте работоспособность приложения, для этого перейдите на страницу:
 
 ```
-python manage.py runserver
+ http://localhost/admin/
+```
+
+Запросы для работа с API:
+
+```
+ http://localhost/redoc/
 ```
 
 Авторы проекта:
@@ -47,3 +48,6 @@ python manage.py runserver
 ```
 Айрат Бакиев, Виталий Яремчук, Максим Никулин
 ```
+
+### Лицензия
+[MIT](./LICENSE)

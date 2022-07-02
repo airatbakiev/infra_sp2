@@ -13,6 +13,12 @@ cd infra_sp2/infra
 docker-compose up
 ```
 
+Для пересборки контейнеров выполнять команду:
+(находясь в папке infra, при запущенном Docker)
+```
+docker-compose up -d --build
+```
+
 В контейнере web выполнить миграции:
 
 ```
